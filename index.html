@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <div class="calculator">
+    <h1>Lynxx<br><span>Age Calculator</span></h1>
+    <div class="input-box">
+      <input type="text" id="date" placeholder="Select date (YYYY-MM-DD)"> <button onclick="calculateAge()">Calculate</button>
+    </div>
+    <p id="result"></p>
+  </div>
+</div>
+
+<script>
+const userInput = document.getElementById("date");
+// Set min and max dates appropriately (optional)
+
+function calculateAge() {
+  let birthDateStr = userInput.value; // Get the date string
+
+  // Validate date format (optional)
+
+  // Parse date using a reliable method (e.g., moment.js)
+  let birthDate = new Date(birthDateStr);
+
+  if (isNaN(birthDate.getTime())) {
+    // Handle invalid date input
+    result.innerHTML = "Please enter a valid date.";
+    return;
+  }
+
+  const today = new Date();
+
+  // Calculate age components using a robust logic
+  // Consider handling leap years, crossing into next year, etc.
+
+  // Example calculation (adjust as needed):
+  let y3 = today.getFullYear() - birthDate.getFullYear();
+  let m3 = today.getMonth() - birthDate.getMonth() + 1;
+  if (m3 < 0) {
+    y3--;
+    m3 += 12;
+  }
+  let d3 = today.getDate() - birthDate.getDate();
+  if (d3 < 0) {
+    m3--;
+    d3 += getDaysInMonth(birthDate.getFullYear(), birthDate.getMonth());
+  }
+
+  // Format and display result
+  result.innerHTML = `You are ${y3} years, ${m3} months and ${d3} days old.`;
+}
+
+function getDaysInMonth(year, month) {
+  // Enhanced to handle leap years correctly
+  if (month === 1) {
+    return ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) ? 29 : 28;
+  } else {
+    return [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
+  }
+}
+</script>
+
+</body>
+</html>
